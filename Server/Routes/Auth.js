@@ -17,10 +17,11 @@ const User = require('../Models/userSchema');
   
     router.post('/registration', (req, res) => {
       
-      const {name,email} = req.body;
+      const {email,password} = req.body;
 
-      if(!name || !email){
+      if(!password || !email){
         return res.status(422).json({error:'Please fill All the Fields Correctly'});
+
       }
 
       User.findOne({email:email})
@@ -29,7 +30,7 @@ const User = require('../Models/userSchema');
           return res.status(422).json({error:'This E-mail is already Exist'});
         }
 
-        const user = new User({name,email});
+        const user = new User({email,password});
 
         user.save().then(() => {
           res.status(201).json({message:'Registration data saved'});
