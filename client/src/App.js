@@ -11,7 +11,19 @@ function App() {
 
       <Navbar />
 
-      
+      <Route exact path="/">
+        <Home />
+      </Route>
+
+
+      <Route exact path="/registration">
+        <Registration />
+      </Route>
+
+
+      <Route exact path="/login">
+        <Login />
+      </Route>
 
     </>
   );
