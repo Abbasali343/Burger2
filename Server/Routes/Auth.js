@@ -11,9 +11,32 @@ const User = require('../Models/userSchema');
     res.send('Hi World!')
     })
   
-    router.get('/signin', (req, res) => {
-      res.send('This is Signin Page')
-    })
+    router.post('/signin',async (req, res) => {
+     try{
+
+        const {email,password} = req.body;
+
+        if(!password || !email){
+          return res.status(422).json({error:'Please fill All the Fields Correctly'});
+
+        }
+
+
+        const userlogin = await User.findOne({email:email,password:password});
+
+        console.log(userlogin);
+
+        if(!userlogin){
+          res.status(400).json({error:'Record not found'});
+        }
+        else{
+          res.status(400).json({error:'Sign in Successfully'});
+        }
+
+      }   catch (err){
+            console.log(err);
+          }
+    });
   
     router.post('/registration', (req, res) => {
       
